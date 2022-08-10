@@ -201,10 +201,10 @@ define Package/$(PKG_NAME)/install
 	  $(INSTALL_DIR) $(1)/; \
 	  cp -pR $(PKG_BUILD_DIR)/root/* $(1)/; \
 	else true; fi
-	if [ -d $(PKG_BUILD_DIR)/src ]; then \
-	  $(call Build/Install/Default) \
-	  $(CP) $(PKG_INSTALL_DIR)/* $(1)/; \
-	else true; fi
+	[ -d $(PKG_BUILD_DIR)/src ] && \
+	  $(call Build/Install/Default) && \
+	  $(CP) $(PKG_INSTALL_DIR)/* $(1)/ || \
+	true
 endef
 
 ifndef Package/$(PKG_NAME)/postinst
